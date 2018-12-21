@@ -1,13 +1,13 @@
 'use strict';
 
-var Mobile = (function() {
+var MobileUI = (function() {
 
 	/***********************************
 	************ Settings **************
 	************************************/
 	
 	var _settings = {
-		storageKey: "DuncanPriebeMobileSite", // The web storage key
+		storageKey: "DuncanPriebeMobileUI", // The web storage key
 		desktopAspectRatio: 0.625, // The default aspect ratio (for desktop or other devices that are not smartphone-shaped)
 		defaultRowCount: 6, // Default number of rows
 		defaultColumnCount: 4, // Default number of columns
@@ -69,7 +69,7 @@ var Mobile = (function() {
 	var _apps = {
 		info: {
 			text: "Information",
-			icon: "./apps/info/info-icon.png",
+			icon: "./img/icons/info.png",
 			type: "script",
 			params: {
 				script: function(scriptParams) {
@@ -80,7 +80,7 @@ var Mobile = (function() {
 		},
 		lock: {
 			text: "Lock Screen",
-			icon: "./img/lock-icon.png",
+			icon: "./img/icons/lock.png",
 			type: "script",
 			params: {
 				script: function(scriptParams) {
@@ -91,7 +91,7 @@ var Mobile = (function() {
 		},
 		flashlight: {
 			text: "Flashlight",
-			icon: "./apps/flashlight/icon.png",
+			icon: "./img/icons/flashlight.png",
 			type: "url",
 			params: {
 				url: "./apps/flashlight/index.html",
@@ -100,7 +100,7 @@ var Mobile = (function() {
 		},
 		alarm: {
 			text: "Alarm",
-			icon: "./img/clock-icon.png",
+			icon: "./img/icons/clock.png",
 			type: "url",
 			params: {
 				url: "http://www.duncanpriebe.com/pages/alarm",
@@ -109,7 +109,7 @@ var Mobile = (function() {
 		},
 		cipher: {
 			text: "Cipher",
-			icon: "./img/encrypt-icon.png",
+			icon: "./img/icons/cipher.png",
 			type: "url",
 			params: {
 				url: "http://www.duncanpriebe.com/pages/cipher",
@@ -118,7 +118,7 @@ var Mobile = (function() {
 		},
 		zyrian: {
 			text: "Zyrian",
-			icon: "./img/zyrian-icon.png",
+			icon: "./img/icons/zyrian.png",
 			type: "url",
 			params: {
 				url: "http://www.duncanpriebe.com/pages/zyrian",
@@ -127,7 +127,7 @@ var Mobile = (function() {
 		},
 		dailyduncan: {
 			text: "Daily Duncan",
-			icon: "./img/dailyduncan-icon.png",
+			icon: "./img/icons/dailyduncan.png",
 			type: "url",
 			params: {
 				url: "http://www.duncanpriebe.com/blog",
@@ -136,7 +136,7 @@ var Mobile = (function() {
 		},
 		youtube: {
 			text: "YouTube",
-			icon: "./img/youtube-icon.png",
+			icon: "./img/icons/youtube.png",
 			type: "url",
 			params: {
 				url: "https://www.youtube.com",
@@ -145,7 +145,7 @@ var Mobile = (function() {
 		},
 		gmail: {
 			text: "Gmail",
-			icon: "./img/gmail-icon.png",
+			icon: "./img/icons/gmail.png",
 			type: "url",
 			params: {
 				url: "http://www.gmail.com",
@@ -154,7 +154,7 @@ var Mobile = (function() {
 		},
 		google: {
 			text: "Google",
-			icon: "./img/chrome-icon.png",
+			icon: "./img/icons/chrome.png",
 			type: "url",
 			params: {
 				url: "http://www.google.com",
@@ -163,7 +163,7 @@ var Mobile = (function() {
 		},
 		googleDrive: {
 			text: "Google Drive",
-			icon: "./img/googledrive-icon.png",
+			icon: "./img/icons/googledrive.png",
 			type: "url",
 			params: {
 				url: "http://drive.google.com",
@@ -172,7 +172,7 @@ var Mobile = (function() {
 		},
 		googlePlay: {
 			text: "Google Play",
-			icon: "./img/googleplay-icon.png",
+			icon: "./img/icons/googleplay.png",
 			type: "url",
 			params: {
 				url: "https://play.google.com",
@@ -181,7 +181,7 @@ var Mobile = (function() {
 		},
 		weather: {
 			text: "Weather",
-			icon: "./img/weather-icon.png",
+			icon: "./img/icons/weather.png",
 			type: "url",
 			params: {
 				url: "http://www.weather.com",
@@ -190,7 +190,7 @@ var Mobile = (function() {
 		},
 		linkedin: {
 			text: "LinkedIn",
-			icon: "./img/linkedin-icon.png",
+			icon: "./img/icons/linkedin.png",
 			type: "url",
 			params: {
 				url: "http://www.linkedin.com",
@@ -199,7 +199,7 @@ var Mobile = (function() {
 		},
 		facebook: {
 			text: "Facebook",
-			icon: "./img/facebook-icon.png",
+			icon: "./img/icons/facebook.png",
 			type: "url",
 			params: {
 				url: "http://www.facebook.com",
@@ -208,7 +208,7 @@ var Mobile = (function() {
 		},
 		paypal: {
 			text: "PayPal",
-			icon: "./img/paypal-icon.png",
+			icon: "./img/icons/paypal.png",
 			type: "url",
 			params: {
 				url: "http://www.paypal.com",
@@ -217,7 +217,7 @@ var Mobile = (function() {
 		},
 		twitter: {
 			text: "Twitter",
-			icon: "./img/twitter-icon.png",
+			icon: "./img/icons/twitter.png",
 			type: "url",
 			params: {
 				url: "http://www.twitter.com",
@@ -226,7 +226,7 @@ var Mobile = (function() {
 		},
 		amazon: {
 			text: "Amazon",
-			icon: "./img/amazon-icon.png",
+			icon: "./img/icons/amazon.png",
 			type: "url",
 			params: {
 				url: "http://www.amazon.com",
@@ -235,7 +235,7 @@ var Mobile = (function() {
 		},
 		reddit: {
 			text: "reddit",
-			icon: "./img/reddit-icon.png",
+			icon: "./img/icons/reddit.png",
 			type: "url",
 			params: {
 				url: "http://www.reddit.com",
@@ -244,7 +244,7 @@ var Mobile = (function() {
 		},
 		yahoo: {
 			text: "Yahoo",
-			icon: "./img/yahoo-icon.png",
+			icon: "./img/icons/yahoo.png",
 			type: "url",
 			params: {
 				url: "http://www.yahoo.com",
@@ -253,7 +253,7 @@ var Mobile = (function() {
 		},
 		wikipedia: {
 			text: "Wikipedia",
-			icon: "./img/wikipedia-icon.png",
+			icon: "./img/icons/wikipedia.png",
 			type: "url",
 			params: {
 				url: "http://www.wikipedia.com",
@@ -262,7 +262,7 @@ var Mobile = (function() {
 		},
 		soundcloud: {
 			text: "SoundCloud",
-			icon: "./img/soundcloud-icon.png",
+			icon: "./img/icons/soundcloud.png",
 			type: "url",
 			params: {
 				url: "https://soundcloud.com/",
@@ -271,7 +271,7 @@ var Mobile = (function() {
 		},
 		itunes: {
 			text: "iTunes",
-			icon: "./img/itunes-icon.png",
+			icon: "./img/icons/itunes.png",
 			type: "url",
 			params: {
 				url: "http://www.itunes.com",
@@ -280,7 +280,7 @@ var Mobile = (function() {
 		},
 		ebay: {
 			text: "eBay",
-			icon: "./img/ebay-icon.png",
+			icon: "./img/icons/ebay.png",
 			type: "url",
 			params: {
 				url: "http://www.ebay.com",
@@ -289,7 +289,7 @@ var Mobile = (function() {
 		},
 		instagram: {
 			text: "Instagram",
-			icon: "./img/instagram-icon.png",
+			icon: "./img/icons/instagram.png",
 			type: "url",
 			params: {
 				url: "http://www.instagram.com",
@@ -298,7 +298,7 @@ var Mobile = (function() {
 		},
 		netflix: {
 			text: "Netflix",
-			icon: "./img/netflix-icon.png",
+			icon: "./img/icons/netflix.png",
 			type: "url",
 			params: {
 				url: "http://www.netflix.com",
@@ -307,7 +307,7 @@ var Mobile = (function() {
 		},
 		hulu: {
 			text: "Hulu",
-			icon: "./img/hulu-icon.png",
+			icon: "./img/icons/hulu.png",
 			type: "url",
 			params: {
 				url: "https://www.hulu.com",
@@ -316,7 +316,7 @@ var Mobile = (function() {
 		},
 		amazonPrime: {
 			text: "Amazon Prime",
-			icon: "./img/amazonprimevideo-icon.png",
+			icon: "./img/icons/amazonprimevideo.png",
 			type: "url",
 			params: {
 				url: "https://www.primevideo.com/",
@@ -325,7 +325,7 @@ var Mobile = (function() {
 		},
 		twitch: {
 			text: "Twitch",
-			icon: "./img/twitch-icon.png",
+			icon: "./img/icons/twitch.png",
 			type: "url",
 			params: {
 				url: "http://www.twitch.tv",
@@ -334,7 +334,7 @@ var Mobile = (function() {
 		},
 		bing: {
 			text: "Bing",
-			icon: "./img/bing-icon.png",
+			icon: "./img/icons/bing.png",
 			type: "url",
 			params: {
 				url: "http://www.bing.com",
@@ -343,7 +343,7 @@ var Mobile = (function() {
 		},
 		pinterest: {
 			text: "Pinterest",
-			icon: "./img/pinterest-icon.png",
+			icon: "./img/icons/pinterest.png",
 			type: "url",
 			params: {
 				url: "https://www.pinterest.com",
@@ -352,7 +352,7 @@ var Mobile = (function() {
 		},
 		fightpass: {
 			text: "FIGHTPASS",
-			icon: "./img/fightpass-icon.png",
+			icon: "./img/icons/fightpass.png",
 			type: "url",
 			params: {
 				url: "http://www.fightpass.com",
@@ -361,7 +361,7 @@ var Mobile = (function() {
 		},
 		espn: {
 			text: "ESPN",
-			icon: "./img/espn-icon.png",
+			icon: "./img/icons/espn.png",
 			type: "url",
 			params: {
 				url: "http://www.espn.com",
@@ -1917,7 +1917,7 @@ var Mobile = (function() {
 	
 	var _createShortcut = function(data) {
 		var imageText = "";
-		var icon = "img/";
+		var icon = "img/icons/";
 		if (data.shortcutType == "link") {
 			imageText = "Link";
 			icon += "external-link.png";
@@ -4935,7 +4935,7 @@ var Mobile = (function() {
 				// Add the new shortcut
 				var shortcut = new Shortcut(self, text, _apps[key].icon, _apps[key].type, _apps[key].params, row, column);
 			} else {
-				var shortcut = new Shortcut(self, text, "img/folder-icon.png", "folder", null, row, column);
+				var shortcut = new Shortcut(self, text, "img/icons/folder.png", "folder", null, row, column);
 			}
 
 			// Store the app key
@@ -5492,10 +5492,7 @@ return {
     };
 })();
 
+// Create the app when the page loads
 var init = function() {
-	//Mobile.enableDebugging();
-
-	Mobile.app = Mobile.createApp();
-	//Mobile.app = Mobile.createApp(null);
-	//Mobile.app = Mobile.createApp(document.body);
+	MobileUI.app = MobileUI.createApp();
 };
