@@ -1,0 +1,831 @@
+/*
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+  html {
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    width: 100vh;
+    height: 100vw;
+    overflow-x: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+}
+*/
+
+@font-face {
+	font-family: OpenSansRegular;
+	src: url("../fonts/OpenSans-Regular.ttf");
+}
+
+/* Define basic app functionality */
+
+html {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html,body {
+	/* Fix issue where moving the input below the app div doesn't fire mousemove event */
+	height: 100%;
+
+	/* Prevent pull-down to refresh page on mobile */
+	overscroll-behavior-y: contain;
+}
+
+body {
+	background-color: rgba(25, 25, 35, 1);
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+.App {
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	width: 100%;
+	height: 100vh;
+	margin: 0 auto;
+	background-color: #000000;
+}
+
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+
+@-ms-keyframes spin {
+	from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.AppBackground {
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+}
+
+.Stars {
+	position: absolute;
+	width: 10000%;
+	height: 10000%;
+	top: -4950%;
+	left: -4950%;
+	background-image: url("../img/backgrounds/stars.png");
+	background-repeat: repeat;
+	background-size: 1.25%;
+}
+
+.Stars-Rotating {
+	-moz-animation: spin 500s linear infinite;
+	-ms-animation: spin 500s linear infinite;
+	-o-animation: spin 500s linear infinite;
+	-webkit-animation: spin 500s linear infinite;
+	animation: spin 500s linear infinite;
+}
+
+@-webkit-keyframes move-twink-back {
+    from { background-position: 0 0; }
+    to { background-position: -10000px 5000px; }
+}
+@-moz-keyframes move-twink-back {
+    from { background-position: 0 0; }
+    to { background-position: -10000px 5000px; }
+}
+@-ms-keyframes move-twink-back {
+    from { background-position: 0 0; }
+    to { background-position: -10000px 5000px; }
+}
+@keyframes move-twink-back {
+    from { background-position: 0 0; }
+    to { background-position: -10000px 5000px; }
+}
+
+.Twinkling {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	display: block;
+	-moz-animation: move-twink-back 500s linear infinite;
+	-ms-animation: move-twink-back 500s linear infinite;
+	-o-animation: move-twink-back 500s linear infinite;
+	-webkit-animation: move-twink-back 500s linear infinite;
+	animation: move-twink-back 500s linear infinite;
+	background: transparent url("../img/backgrounds/twinkling.png") repeat top center;
+	background-size: 35%;
+	background-size: 15vh;
+}
+
+.NoTransition {
+	-webkit-transition: none !important;
+	-moz-transition: none !important;
+	-o-transition: none !important;
+	transition: none !important;
+}
+
+.Statusbar {
+	position: absolute;
+	box-sizing: border-box;
+	overflow: hidden;
+	width: 100%;
+	height: 5%;
+	z-index: 7;
+}
+
+.StatusbarElement {
+	position: relative;
+	box-sizing: border-box;
+	float: left;
+	height: 100%;
+	z-index: 8;
+	background-color: rgba(50, 50, 50, 0.5);
+}
+
+.StatusbarElementText {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 2vh;
+}
+
+.StatusbarDate {
+	width: 50%;
+	text-align: left;
+	padding-left: 15px;
+	padding-left: 2.5vh;
+}
+
+.StatusbarTime {
+	width: 50%;
+	padding-right: 6.5vh;
+	text-align: right;
+}
+
+.StatusbarLatency {
+	right: 3.5vh;
+}
+
+.StatusbarLatencyImage {
+	position: absolute;
+	width: 2vh;
+	height: 40%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.Navbar {
+	position: absolute;
+	box-sizing: border-box;
+	overflow: hidden;
+	text-align: center;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	transition: opacity 100ms ease;
+	z-index: 4;
+	width: 100%;
+	top: 90%;
+	height: 10%;
+}
+
+.NavbarButton {
+	position: relative;
+	box-sizing: border-box;
+	float: left;
+	width: 25%;
+	height: 100%;
+	cursor: pointer;
+	transition: background-color 100ms ease;
+	background-color: rgba(50, 50, 50, 0.5);
+}
+
+.NavbarButton:last-child {
+	border-right: none;
+}
+
+.NavbarButtonIcon {
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 5vh;
+}
+
+.NavbarMenu {
+	position: absolute;
+	box-sizing: border-box;
+	overflow: hidden;
+	text-align: center;
+	z-index: 3;
+	right: 0px;
+	transition: left 100ms ease;
+	top: 47.1%;
+	left: 100%;
+	width: 50%;
+	height: 60%;
+}
+
+.NavbarMenuButton {
+	position: relative;
+	box-sizing: border-box;
+	height: 14.2857%;
+	width: 100%;
+	cursor: pointer;
+	transition: background-color 100ms ease;
+	border-bottom: 1px solid #aaaaaa;
+	background-color: rgba(50, 50, 50, 0.5);
+}
+
+.NavbarMenuButtonIcon {
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	left: 20%;
+	transform: translate(-50%, -50%);
+	font-size: 4.5vh;
+}
+
+.NavbarMenuButton:last-child {
+	border-bottom: none;
+}
+
+.NavbarButtonHover {
+	background-color: rgba(100, 100, 100, 0.5);
+}
+
+.NoTouch .NavbarButtonHover {
+	background-color: rgba(50, 50, 50, 0.5);
+}
+
+.NavbarButtonPressed {
+	background-color: rgba(200, 200, 200, 0.5);
+}
+
+.NoTouch .NavbarButtonPressed {
+	background-color: rgba(200, 200, 200, 0.5);
+}
+
+.NavbarMenuButtonText {
+	position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: left;
+    width: 55%;
+    left: 40%;
+    padding-right: 5%;
+    font-size: 2vh;
+}
+
+.NavbarShortcutEditArea {
+	position: absolute;
+	box-sizing: border-box;
+	overflow: hidden;
+	width: 100%;
+	height: 10%;
+	top: 100%;
+	z-index: 4;
+	transition: background-color 100ms ease;
+	transition: top 100ms linear;
+}
+
+.NavbarShortcutEditButton {
+	position: relative;
+	box-sizing: border-box;
+	overflow: hidden;
+	float: left;
+	height: 100%;
+	width: 50%;
+	font-size: 5vh;
+	z-index: 1;
+	top: 0px;
+	cursor: pointer;
+	background-color: rgba(50, 50, 50, 0.5);
+	color: #ffffff;
+	text-align: center;
+	transition: background-color 100ms ease;
+}
+
+.EditButtonHover {
+	background-color: rgba(100, 100, 100, 0.5);
+}
+
+.Folder {
+	position: absolute;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	height: 80%;
+	width: 100%;
+	top: 5%;
+	left: 0%;
+	transition: left 100ms ease, top 100ms ease, opacity 150ms ease;
+	cursor: -webkit-grab;
+	cursor: grab;
+}
+
+.AppFolder {
+	z-index: 3;
+}
+
+.Shortcut {
+	position: absolute;
+	box-sizing: border-box;
+	overflow: hidden;
+	background-position: center;
+	background-size: 60% 60%;
+	background-repeat: no-repeat;
+	text-align: center;
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	cursor: pointer;
+	transform: translate(-50%, -50%);
+	transition: left 100ms ease, top 100ms ease, background-size 150ms ease, opacity 200ms ease;
+	z-index: 1;
+	opacity: 0;
+}
+
+.ShortcutText {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+}
+
+.ShortcutTapped {
+	background-size: 55% 55%;
+}
+
+.ShortcutHold {
+	z-index: 6;
+	background-size: 50% 50%;
+}
+
+.FolderMapArea {
+	position: absolute;
+	width: 100%;
+	height: 5%;
+	top: 85%;
+	left: 0%;
+	z-index: 2;
+	overflow: hidden;
+	transition: opacity 150ms ease;
+}
+
+.FolderMap {
+	position: absolute;
+	top: 0%;
+	left: 37.5%;
+	opacity: 1;
+	width: 25%;
+	height: 100%;
+	transition: top 100ms ease, opacity 35ms ease;
+}
+
+.FolderMapFolder {
+	position: absolute;
+	height: 100%;
+	width: 20%;
+	transform: translate(-50%, 0%);
+	transition: left 100ms ease, color 100ms ease;
+	font-size: 2vh;
+	color: rgba(255, 255, 255, 0.5);
+}
+
+.FolderMapFolderIcon {
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.FolderMapFolderSelected {
+	color: white;
+}
+
+.ModalBackground {
+	position: absolute;
+	background-color: rgba(0,0,0,0.5);
+	width: 100%;
+    height: 100%;
+	z-index: -1;
+	opacity: 0;
+    transition: opacity 100ms ease;
+    left: 0;
+    top: 0;
+}
+
+.Modal {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	width: 75%;
+	top: 30%;
+	left: 50%;
+	padding-bottom: 5%;
+	transform: translate(-50%, -50%);
+	transition: opacity 100ms ease;
+	background-color: #ffffff;
+	color: #000000;
+}
+
+.ModalHeader {
+	width: 80%;
+	margin-left: 10%;
+	text-align: center;
+	font-size: 3.5vh;
+	font-weight: bold;
+	margin-top: 1vh;
+	margin-bottom: -2vh;
+}
+
+.ModalMessage {
+	width: 90%;
+	margin-left: 5%;
+	text-align: center;
+	font-size: 2.5vh;
+	margin-top: 1vh;
+	margin-bottom: -2vh;
+}
+
+.ModalMessage p:first-child {
+	margin-top: 2vh;
+}
+
+.ModalMessage p {
+	margin-bottom: 1vh;
+}
+
+.ModalMessage a {
+	color: #27b6df;
+	text-decoration: none;
+	transition: color 100ms ease;
+}
+
+.ModalMessage a:hover {
+	color: #1796bf;
+}
+
+.ModalButton {
+	position: relative;
+	box-sizing: border-box;
+	float: left;
+	cursor: pointer;
+	transition: background-color 100ms ease, border 100ms ease;
+	text-align: center;
+	margin-top: 2vh;
+	margin-left: 7.5%;
+	width: 39%;
+	height: 8vh;
+	background-color: #222222;
+	border: none;
+	color: #ffffff;
+}
+
+.ModalButton:focus {
+	outline: none;
+	border: 3px solid #27b6df;
+}
+
+.ModalButton:hover {
+	background-color: #27b6df;
+}
+
+.ModalButtonSelected {
+	background-color: #27b6df;
+}
+
+.ModalButtonIcon {
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 5vh;
+}
+
+.ModalButtonLeft {
+	width: 39%;
+	height: 15%;
+	left: 7.5%;
+}
+
+.ModalButtonRight {
+	width: 39%;
+	height: 15%;
+	left: 53.5%;
+}
+
+.ModalButtonFull {
+	width: 85%;
+	height: 8vh;
+}
+
+.ModalExitButton {
+	position: absolute;
+	box-sizing: border-box;
+	cursor: pointer;
+	text-align: center;
+	top: 0px;
+	right: 0px;
+	width: 5.5vh;
+	height: 5.5vh;
+	transition: color 100ms ease;
+}
+
+.ModalExitButton:hover {
+	color: #27b6df;
+}
+
+.ModalTextInput {
+	position: relative;
+	box-sizing: border-box;
+	float: left;
+	border: none;
+	font-size: 2.5vh;
+	cursor: pointer;
+	transition: background-color 100ms ease, border 100ms ease;
+	text-align: center;
+	margin-top: 7.5%;
+	margin-left: 7.5%;
+	width: 85%;
+	height: 8vh;
+	background-color: #222222;
+	color: #ffffff;
+}
+
+.ModalTextInput:hover {
+
+}
+
+.ModalTextInput:focus {
+	outline: none;
+	border: 3px solid #27b6df;
+}
+
+.ModalTextInput::selection {
+	background-color: #27b6df;
+}
+
+.LoadingScreen {
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.5);
+	width: 100%;
+    height: 100%;
+	z-index: -1;
+	opacity: 0;
+    transition: opacity 100ms ease;
+    left: 0;
+    top: 0;
+}
+
+.LoadingScreenSpinner {
+	position: absolute;
+	top: 45%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border: 0.4vh solid #666666;
+	border-radius: 50%;
+	border-top: 0.4vh solid #bbbbbb;
+	width: 7vh;
+	height: 7vh;
+	margin: -3.5vh 0 0 -3.5vh;
+	-moz-animation: spin 1s linear infinite;
+	-ms-animation: spin 1s linear infinite;
+	-o-animation: spin 1s linear infinite;
+	-webkit-animation: spin 1s linear infinite;
+	animation: spin 1s linear infinite;
+}
+
+.LockoutScreen {
+	position: absolute;
+	left: 0%;
+    top: 5%;
+	width: 100%;
+    height: 95%;
+	z-index: 10;
+	opacity: 1;
+    transition: opacity 500ms ease;
+}
+
+.LockoutScreenTime {
+	position: absolute;
+	top: 20%;
+	margin: 0 auto;
+	width: 100%;
+	text-align: center;
+}
+
+.LockoutScreenTimeText {
+	font-size: 10vh;
+}
+
+.LockoutScreenLockIcon {
+	position: absolute;
+	top: 71.5%;
+	width: 100%;
+	height: 35%;
+	text-align: center;
+	font-size: 2vh;
+}
+
+.LockoutScreenSliderArea {
+	position: absolute;
+	top: 75%;
+	width: 100%;
+	height: 25%;
+	background: linear-gradient(rgba(50, 50, 50, 0.5), rgba(0, 0, 0, 1), rgba(0, 0, 0, 1));
+}
+
+.LockoutScreenSlider {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	width: 80%;
+	height: 35%;
+	background-color: #111111;
+	transform: translate(-50%, -50%);
+	box-shadow: 0 0 0.4vh 0.4vh #666666 inset;
+	border-radius: 1vh;
+}
+
+.LockoutScreenSliderButton {
+	position:absolute;
+	top: 0%;
+	left: 12.5%;
+	width: 25%;
+	height: 100%;
+	transform: translate(-50%);
+	transition: left 50ms ease;
+	background: linear-gradient(#ffffff, #999999);
+	border-radius: 1vh;
+	z-index: 2;
+	cursor: pointer;
+}
+
+.LockoutScreenSliderButton:hover {
+}
+
+.NoTouch .LockoutScreenSliderButton:hover {
+	background: linear-gradient(#ffffff, #999999);
+}
+
+.LockoutScreenSliderButtonIcon {
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	left: 50%;
+	text-align: center;
+	transform: translate(-50%, -50%);
+	font-size: 5vh;
+	font-color: #000000;
+	background: -webkit-linear-gradient(#aaaaaa, #000000);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.LockoutScreenSliderButtonIcon:hover {
+}
+
+.NoTouch .LockoutScreenSliderButtonIcon:hover {
+	font-color: #000000;
+	background: -webkit-linear-gradient(#888888, #000000);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.LockoutScreenSliderText {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	padding-left: 30%;
+	z-index: 1;
+	font-size: 3vh;
+	/*
+	background: -webkit-linear-gradient(#ffffff, #888888);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	*/
+	color: #dddddd;
+}
+
+.FrameWrapper {
+	position: absolute;
+	box-sizing: border-box;
+	top: 5%;
+	left: 0px;
+	width: 100%;
+	height: 85%;
+	border: none;
+	z-index: 0;
+	opacity: 1;
+	transition: opacity 150ms ease;
+	overflow: hidden;
+}
+
+/* Apparently higher z index than parent or frame allows it to catch clicks, but it didnt work for me
+.FrameWrapper:after{
+	content:"";
+	position:absolute;
+	z-index:1;
+	width:100%;
+	height:100%;
+	left:0;
+	top:0;
+}
+*/
+
+.Frame {
+	width: 100%;
+	height: 100%;
+	border: none;
+}
+
+.FrameOverlay {
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	border: none;
+	background-color: rgba(50, 0, 0, 0.5);
+	z-index: 3;
+}
+
+/* Define custom app style */
+
+.App {
+	border: 1px solid black;
+	color: white;
+	font-family: OpenSansRegular, calibri;
+}
+
+.Folder {
+	
+}
+
+.Shortcut {
+	color: white;
+	border: 1px solid transparent;
+	border-radius: 10px;
+}
+
+.ShortcutText {
+	font-size: 1.5vh;
+}
+
+.ShortcutTapped {
+	/*
+	color: red;
+	border: 1px solid red;
+	border-radius: 10px;
+	*/
+	/*
+	border: 4px solid transparent;
+	*/
+}
+
+.ShortcutHold {
+	/*
+	color: blue;
+	border: 1px solid blue;
+	border-radius: 10px;
+	*/
+	/*
+	border: 8px solid transparent;
+	*/
+}
+
