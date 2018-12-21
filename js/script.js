@@ -1,36 +1,5 @@
 'use strict';
 
-/*
-Description: Framework for quickly creating simple, mobile-friendly interfaces
-
-Design:
-	App:
-		• Gets inserted into a div (or document.body)
-		• Contains folders and shortcuts
-
-	Folders:
-		• Folders belong to the app
-		• Contains shortcuts
-		• Shortcuts are added in a grid layout (by row and column)
-		• Has callbacks that fire on directional swipe inputs
-
-	Shortcuts:
-		• Shortcuts belong to folders
-		• Can contain text or an image (or both?)
-		• Has callbacks that fire on different inputs (tap, double-tap, hold)
-		• Width and height are set by row count and column count
-
-	Styling:
-		• Each object has an id, which is styled using a css file
-
-	Use:
-		• Create the app, setting the id, width, and height
-		• Add folders and shortcuts to the app
-		• Populate folders with shortcuts
-		• Set folder swipe transitions
-		• Set callbacks on shortcuts
-*/
-
 var Mobile = (function() {
 
 	/***********************************
@@ -94,7 +63,7 @@ var Mobile = (function() {
 	};
 	
 	/***********************************
-	************ Settings **************
+	************** Apps ****************
 	************************************/
 	
 	var _apps = {
@@ -2016,7 +1985,7 @@ var Mobile = (function() {
 		}
 	};
 	
-	var _removeFolder = function(folder, instantFlag, hiddenFlag) {
+	var _removeFolder = function(folder, instantFlag, hiddenFlag, skipPrompt) {
 		// If a folder wasn't passed in, remove the active folder
 		if (folder == null && folder == undefined) {
 			folder = _activeFolder;
@@ -2045,12 +2014,18 @@ var Mobile = (function() {
 		}
 
 		if (hasShortcuts && !instantFlag && !hiddenFlag) {
-			_confirmModal.setAcceptCallback(function() {
+			if (!skipPrompt) {
+				_confirmModal.setAcceptCallback(function() {
+					folder.remove();
+
+					_saveStorage();
+				});
+				_confirmModal.show("WARNING!", "Deleting folder will delete its shortcuts.");
+			} else {
 				folder.remove();
 
 				_saveStorage();
-			});
-			_confirmModal.show("WARNING!", "Deleting folder will delete its shortcuts.");
+			}
 		} else {
 			folder.remove(instantFlag, hiddenFlag);
 
@@ -3797,16 +3772,22 @@ var Mobile = (function() {
 		// Lock the screen
 		var lock = function() {
 			_lockScreen();
+
+			_resetLastInputTime();
 		};
 
 		// Unlock the screen
 		var unlock = function() {
 			_unlockScreen();
+
+			_resetLastInputTime();
 		};
 
 		// Add a subfolder
 		var addSubfolder = function(folderName) {
 			_createSubfolder({folderName: folderName});
+
+			_resetLastInputTime();
 		};
 
 		// Add a sibling folder
@@ -3818,6 +3799,8 @@ var Mobile = (function() {
 			}
 
 			_addFolder();
+
+			_resetLastInputTime();
 		};
 
 		var selectNextFolder = function() {
@@ -3828,6 +3811,8 @@ var Mobile = (function() {
 			}
 			
 			_activeFolder.selectNextFolder();
+
+			_resetLastInputTime();
 		};
 
 		var selectPreviousFolder = function() {
@@ -3838,6 +3823,8 @@ var Mobile = (function() {
 			}
 
 			_activeFolder.selectPreviousFolder();
+
+			_resetLastInputTime();
 		};
 
 		// Delete the active folder
@@ -3848,7 +3835,9 @@ var Mobile = (function() {
 				return false;
 			}
 
-			_removeFolder();
+			_removeFolder(null, null, null, true);
+
+			_resetLastInputTime();
 		};
 
 		var runApp = function(key) {
@@ -3873,6 +3862,8 @@ var Mobile = (function() {
 			} else if (_apps[key].type == "script") {
 				_apps[key].params.script(_apps[key].params.scriptParams);
 			}
+
+			_resetLastInputTime();
 		};
 
 		// Return the list of app keys
@@ -3931,6 +3922,8 @@ var Mobile = (function() {
 				// Otherwise add it to the active folder
 				_activeFolder.addShortcut(key, text, row, column);
 			}
+
+			_resetLastInputTime();
 		};
 
 		var moveShortcut = function(startingRow, startingColumn, endingRow, endingColumn) {
@@ -3971,6 +3964,8 @@ var Mobile = (function() {
 			}
 
 			startingShortcut.moveByRowAndColumn(endingRow, endingColumn);
+
+			_resetLastInputTime();
 		};
 
 		var activateShortcut = function(row, column) {
@@ -4001,6 +3996,8 @@ var Mobile = (function() {
 				
 				// Active the shortcut
 				shortcut.tapCallback()
+
+				_resetLastInputTime();
 			}
 		};
 
@@ -4033,6 +4030,8 @@ var Mobile = (function() {
 
 				// Remove the shortcut
 				shortcut.remove();
+
+				_resetLastInputTime();
 			}
 		};
 
@@ -4044,6 +4043,8 @@ var Mobile = (function() {
 			}
 
 			_goUp();
+
+			_resetLastInputTime();
 		};
 
 		var goHome = function() {
@@ -4054,6 +4055,8 @@ var Mobile = (function() {
 			}
 
 			_goHome();
+
+			_resetLastInputTime();
 		};
 
 		var showAppFolder = function() {
@@ -4076,6 +4079,8 @@ var Mobile = (function() {
 			_hideFrame();
 
 			_app.appFolder.show();
+
+			_resetLastInputTime();
 		};
 
 		var hideAppFolder = function() {
@@ -4098,6 +4103,8 @@ var Mobile = (function() {
 			_hideFrame();
 
 			_app.appFolder.hide();
+
+			_resetLastInputTime();
 		};
 
 		var toggleAppFolder = function() {
@@ -4108,6 +4115,8 @@ var Mobile = (function() {
 			}
 
 			_showAppFolder();
+
+			_resetLastInputTime();
 		};
 
 		var showMenu = function() {
@@ -4134,6 +4143,8 @@ var Mobile = (function() {
 			} else {
 				_app.navbarMenu.show();
 			}
+
+			_resetLastInputTime();
 		};
 
 		var hideMenu = function() {
@@ -4160,6 +4171,8 @@ var Mobile = (function() {
 			} else {
 				_app.navbarMenu.hide();
 			}
+
+			_resetLastInputTime();
 		};
 
 		var toggleMenu = function() {
@@ -4194,14 +4207,20 @@ var Mobile = (function() {
 					_app.navbarMenu.hide();
 				}
 			}
+
+			_resetLastInputTime();
 		};
 
 		var reset = function() {
 			self.reset();
+
+			_resetLastInputTime();
 		};
 
 		var showInfo = function() {
 			_showInfo();
+
+			_resetLastInputTime();
 		};
 		
 		// Expose public functions
@@ -5441,7 +5460,7 @@ var Mobile = (function() {
 			
 		// Set parent element
 		if (parent != null && parent != undefined) {
-			if (parent.tagName == "DIV") {
+			if (parent.tagName == "DIV" || parent == document.body) {
 				_parent = parent;
 			} else {
 				_printDebugText("ERROR: Parent is not a valid DIV element!");
@@ -5476,5 +5495,7 @@ return {
 var init = function() {
 	//Mobile.enableDebugging();
 
-	Mobile.app = Mobile.createApp(null);
+	Mobile.app = Mobile.createApp();
+	//Mobile.app = Mobile.createApp(null);
+	//Mobile.app = Mobile.createApp(document.body);
 };
