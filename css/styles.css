@@ -247,7 +247,7 @@ body {
 	cursor: pointer;
 	transition: background-color 100ms ease;
 	border-bottom: 1px solid #aaaaaa;
-	background-color: rgba(50, 50, 50, 0.5);
+	background-color: rgba(50, 50, 50, 0.7);
 }
 
 .NavbarMenuButtonIcon {
@@ -450,6 +450,15 @@ body {
 	transition: opacity 100ms ease;
 	background-color: #ffffff;
 	color: #000000;
+}
+
+.Modal .glyphicon {
+	margin-right: 1vh;
+}
+
+.Modal hr {
+	border-top: 2px solid #444444;
+	margin-bottom: 0.5vh;
 }
 
 .ModalHeader {
@@ -746,12 +755,4 @@ body {
 	border: none;
 	background-color: rgba(50, 0, 0, 0.5);
 	z-index: 3;
-}
-
-.test {
-	left: 50%;
-	position: absolute;
-	width: 400px;
-	height: 400px;
-	background-color: red;
 }

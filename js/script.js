@@ -67,13 +67,14 @@ var MobileUI = (function() {
 	************************************/
 	
 	var _apps = {
-		info: {
-			text: "Information",
-			icon: "./img/icons/info.png",
+		help: {
+			text: "Help",
+			icon: "./img/icons/help.png",
 			type: "script",
 			params: {
 				script: function(scriptParams) {
-					_textModal.show("Info", "<p>\"No libraries were used in the making of this page.\"</p><p>\—Duncan Priebe</p>");
+					_textModal.show("Help", "<p><span class='glyphicon glyphicon-home'></span>Select home folder</p><p><span class='glyphicon glyphicon-chevron-left'></span>Select previous folder</p><p><span class='glyphicon glyphicon-th'></span>Show available apps</p><p><span class='glyphicon glyphicon-menu-hamburger'></span>Show menu</p><hr><p>Swipe left or right to select folders</p><p>Hold apps to add or move them</p>");
+					//<p>Hold apps to copy them</p><hr><p>Swipe left and right to change folders.</p><hr><p>Hold apps in the App Folders to add them to the current folder.</p><hr><p>Hold apps to move them</p>");
 				},
 				scriptParams: ""
 			}
@@ -2052,7 +2053,7 @@ var MobileUI = (function() {
 	};
 
 	var _showInfo = function() {
-		_textModal.show("Info", "<p>\"No libraries were used in the making of this page.\"</p><p>\—Duncan Priebe</p>");
+		_textModal.show("About", "<p>\"No libraries were used in the making of this page.\"</p><p>\—Duncan Priebe</p>");
 	};
 
 	var _goFullscreen = function(div) {
@@ -2266,7 +2267,8 @@ var MobileUI = (function() {
 			
 			// Add a delay for mobile compliance (so it doesn't pull up the keyboard during the transition or fail to select)
 			setTimeout(function () {
-		    	_editShortcutModal.nameInput.div.focus();
+		    	//_editShortcutModal.nameInput.div.focus();
+		    	_editShortcutModal.nameInput.div.select();
 		    }, _settings.modalHideTime);
 		}
 
@@ -2298,8 +2300,8 @@ var MobileUI = (function() {
 
 			// Add a delay for mobile compliance (so it doesn't pull up the keyboard during the transition or fail to select)
 			setTimeout(function () {
-		    	//_createSubfolderModal.nameInput.div.select();
-		    	_createSubfolderModal.nameInput.div.focus();
+		    	//_createSubfolderModal.nameInput.div.focus();
+		    	_createSubfolderModal.nameInput.div.select();
 		    }, _settings.modalHideTime);
 		}
 	};
@@ -3046,7 +3048,7 @@ var MobileUI = (function() {
 		);
 		
 		// Add the button icon
-		self.navbarMenu.addSubfolderButton.icon = _addDiv(self.navbarMenu.addSubfolderButton, "NavbarMenuButtonIcon glyphicon glyphicon glyphicon-folder-open");
+		self.navbarMenu.addSubfolderButton.icon = _addDiv(self.navbarMenu.addSubfolderButton, "NavbarMenuButtonIcon glyphicon glyphicon-folder-open");
 
 		// Add the button text
 		self.navbarMenu.addSubfolderButton.text = _addDiv(self.navbarMenu.addSubfolderButton, "NavbarMenuButtonText");
@@ -3128,7 +3130,7 @@ var MobileUI = (function() {
 
 		// Add the button text
 		self.navbarMenu.resetButton.text = _addDiv(self.navbarMenu.resetButton, "NavbarMenuButtonText");
-		self.navbarMenu.resetButton.text.div.innerHTML = "Reset to default";
+		self.navbarMenu.resetButton.text.div.innerHTML = "Reset";
 
 		// Add the info button
 		self.navbarMenu.infoButton = _addDiv(self.navbarMenu, "NavbarMenuButton",
@@ -3154,7 +3156,7 @@ var MobileUI = (function() {
 
 		// Add the button text
 		self.navbarMenu.infoButton.text = _addDiv(self.navbarMenu.infoButton, "NavbarMenuButtonText");
-		self.navbarMenu.infoButton.text.div.innerHTML = "Info";
+		self.navbarMenu.infoButton.text.div.innerHTML = "About";
 
 		// Add the menu button
 		self.navbar.menuButton = _addDiv(self.navbar, "NavbarButton",
@@ -3706,8 +3708,8 @@ var MobileUI = (function() {
 					{
 						shortcuts: [
 							{
-								key: "info",
-								text: "Information",
+								key: "help",
+								text: "Help",
 								row: 0,
 								column: 0
 							}
