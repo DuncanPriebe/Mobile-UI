@@ -2053,7 +2053,7 @@ var MobileUI = (function() {
 	};
 
 	var _showInfo = function() {
-		_textModal.show("About", "<p>\"No libraries were used in the making of this page.\"</p><p>\—Duncan Priebe</p>");
+		_textModal.show("About", "<p>\"No libraries were used in the making of this page.\"</p><p>\—Duncan Priebe</p><hr><p><a href='https://github.com/DuncanPriebe/Mobile-UI' target='_blank'>GitHub Repo</p>");
 	};
 
 	var _goFullscreen = function(div) {
@@ -3489,7 +3489,6 @@ var MobileUI = (function() {
 
 		window.addEventListener("resize", _updateAppSize);
 
-
 		// Create the iframe wrapper
 		_frameWrapper = {};
 		_frameWrapper.div = document.createElement("div");
@@ -3767,6 +3766,10 @@ var MobileUI = (function() {
 
 		// Start checking if the screen needs to be locked
 		setInterval(_checkScreenLockoutTime, 1000);
+
+		// Lock the screen in portrait orientation
+		screen.lockOrientationUniversal = screen.lockOrientation || screen.mozLockOrientation || screen.msLockOrientation || screen.orientation.lock;
+		screen.lockOrientationUniversal("portrait").catch(function() { /*Do Nothing*/ });;
 
 		/***********************************
 		***** Define Public Functions ******
